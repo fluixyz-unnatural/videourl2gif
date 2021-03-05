@@ -2,8 +2,6 @@
   <div> 
     <h4>LocalFilePlayer</h4>
     <LocalFilePlayer />
-    <h4>Example1</h4>
-    <Example1 />
     <h4>Uploader</h4>
     <Uploader />
     <h4>Rectangle</h4>
@@ -26,7 +24,6 @@ import Button from "@/components/Button.vue";
 import TextBox from "@/components/TextBox.vue";
 import VideoPlayer from "@/components/VideoPlayer.vue";
 import LocalFilePlayer from "@/components/LocalFilePlayer.vue"
-import Example1 from "@/components/Example1.vue";
 
 export default defineComponent({
   name: "Home",
@@ -37,7 +34,6 @@ export default defineComponent({
     TextBox,
     VideoPlayer,
     LocalFilePlayer,
-    Example1,
   },
 });
 </script>
