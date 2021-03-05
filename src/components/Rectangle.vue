@@ -1,7 +1,13 @@
 <template>
-  <svg viewbox="0 0 300 300" width="300" height="300">
-    <line x1="100" y1="100" x2="200" y2="200" stroke="black"></line>
-    <rect :x="x" y="0" :width="width" :height="height" fill="#cccccc" stroke="black"></rect>
+  <svg :width="canvasWidth" :height="canvasHeight">
+    <rect
+      :x="x"
+      :y="y"
+      :width="rectWidth"
+      :height="rectHeight"
+      fill="#cccccc"
+      stroke="black"
+    ></rect>
   </svg>
 </template>
 
@@ -11,14 +17,44 @@ import { defineComponent } from "vue";
 export default defineComponent({
   name: "Rectangle",
   props: {
-    msg: String,
+    canvasHeight: {
+      type: Number,
+      default: 300,
+    },
+    canvasWidth: {
+      type: Number,
+      default: 300,
+    },
+    x1: {
+      type: Number,
+      default: 0,
+    },
+    y1: {
+      type: Number,
+      default: 0,
+    },
+    x2: {
+      type: Number,
+      default: 50,
+    },
+    y2: {
+      type: Number,
+      default: 50,
+    },
   },
-  data(){
-    return{ 
-      x:0,
-      height:300,
-      width:300
-    }
+  computed: {
+    x(): number {
+      return Math.min(this.x1, this.x2);
+    },
+    y(): number {
+      return Math.min(this.y1, this.y2);
+    },
+    rectWidth(): number {
+      return Math.abs(this.x1-this.x2);
+    },
+    rectHeight(): number {
+      return Math.abs(this.y1-this.y2);
+    },
   },
 });
 </script>
