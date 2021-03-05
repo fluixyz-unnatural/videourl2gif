@@ -8,7 +8,7 @@ import { defineComponent } from "vue";
 export default defineComponent({
   name: "VideoPlayer",
   props: {
-    videSrc:{
+    videoSrc:{
         type: String,
         default: ""
     },
