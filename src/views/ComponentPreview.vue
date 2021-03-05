@@ -1,17 +1,28 @@
 <template>
-  <div> 
+  <div>
+    <h4>Ffmpeg</h4>
+    <Ffmpeg />
     <h4>LocalFilePlayer</h4>
     <LocalFilePlayer />
     <h4>Uploader</h4>
     <Uploader />
     <h4>Rectangle</h4>
-    <Rectangle />
+    <Rectangle
+      canvasWidth="640"
+      canvasHeight="480"
+      x1="320"
+      x2="120"
+      y1="0"
+      y2="50"
+    />
     <h4>Button</h4>
     <Button label="Sample" />
     <h4>TextBox</h4>
     <TextBox />
     <h4>VideoPlayer</h4>
-    <VideoPlayer videoSrc="/7seg.mp4"/>
+    <VideoPlayer videoSrc="/7seg.mp4" />
+    <h4>DrawRect</h4>
+    <DrawRect />
   </div>
   <br /><br /><br /><br /><br />
 </template>
@@ -23,7 +34,9 @@ import Rectangle from "@/components/Rectangle.vue";
 import Button from "@/components/Button.vue";
 import TextBox from "@/components/TextBox.vue";
 import VideoPlayer from "@/components/VideoPlayer.vue";
-import LocalFilePlayer from "@/components/LocalFilePlayer.vue"
+import LocalFilePlayer from "@/components/LocalFilePlayer.vue";
+import DrawRect from "@/components/DrawRect.vue";
+import Ffmpeg from "@/components/Ffmpeg.vue";
 
 export default defineComponent({
   name: "Home",
@@ -34,6 +47,8 @@ export default defineComponent({
     TextBox,
     VideoPlayer,
     LocalFilePlayer,
+    DrawRect,
+    Ffmpeg,
   },
 });
 </script>
