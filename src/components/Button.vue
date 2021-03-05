@@ -24,8 +24,8 @@ export default defineComponent({
 }
 button {
   color: #222222;
-  padding: 30px 50px;
-  font-size: 32px;
+  padding: 20px;
+  font-size: 18px;
   font-weight: bold;
   border-radius: 10px;
   box-shadow: 1px 1px 10px gray;
