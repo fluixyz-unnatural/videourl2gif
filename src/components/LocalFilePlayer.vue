@@ -30,7 +30,7 @@ export default defineComponent({
     };
   },
   methods: {
-    setFile: function(e) {
+    setFile: function(e: any) {
       const file = e.target.files[0];
       this.ready = true;
       this.msg = "selected : " + file.name;
