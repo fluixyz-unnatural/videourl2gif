@@ -1,7 +1,7 @@
 <template>
   <div>
     <Uploader @change="setFile" />
-    <p v-show="msgOn">{{ msg }}</p><br />
+    <p v-show="msgOn">{{ msg }}</p>
   </div>
 
   <div >
