@@ -1,10 +1,11 @@
 <template>
   <div class="container center">
-    <Uploader @change="setFile" />
-    <div class="relative">
+    <h1>動画ファイルからアニメーションGIFを作成</h1>
+    <Uploader @change="setFile" /><br />
+    <div :height="playerHeight" class="relative">
       <VideoPlayer
-        :width="playerWidth"
         :height="playerHeight"
+        :width="playerWidth"
         :videoSrc="videoSrc"
         class="absolute"
         @timeemit="currentTimeUpdate"
@@ -19,29 +20,24 @@
       />
     </div>
   </div>
-  <div class="container buttons">
-    <ToggleButton @click="cropButtonPushed" label="crop" />
-    <Button @click="setStart" label="SetStart" />
-    <Button @click="setEnd" label="SetEnd" />
-  </div>
-  <div class="container params">
-    <div class="items">
-      <p>FrameRate</p>
-      <TextBox @change="setFps" />
+  <div class="settings">
+    <div class="container buttons">
+      <ToggleButton @click="cropButtonPushed" label="crop" class="settingbutton"/>
+      <Button @click="setStart" label="SetStart" class="settingbutton"/>
+      <Button @click="setEnd" label="SetEnd" class="settingbutton"/>
     </div>
-    <div class="items">
-      <p>Width</p>
-      <TextBox @change="setWidth" />
+    <div class="container params">
+      <div class="items">
+        <p>FrameRate</p>
+        <TextBox @change="setFps" />
+      </div>
+      <div class="items">
+        <p>Width</p>
+        <TextBox @change="setWidth" />
+      </div>
     </div>
   </div>
   <div class="container">
-    {{ cropx }}<br />
-    {{ cropy }}<br />
-    fps:{{ fps }}<br />
-    wid: {{ outWidth }}<br />
-    st: {{ start }}<br />
-    end:{{ end }} <br />
-    dur: {{ duration }} <br />
     <Ffmpeg
       :src="videoSrc"
       :start="start"
@@ -91,10 +87,10 @@ export default defineComponent({
       cropy: 0,
       outWidth: 320,
       currentTime: 0,
-      canvasWidth: 640,
-      canvasHeight: 300,
-      playerWidth: 640,
-      playerHeight: 300,
+      canvasWidth: 720,
+      canvasHeight: 405,
+      playerWidth: 0,
+      playerHeight: 0,
       r: 1,
     };
   },
@@ -148,26 +144,36 @@ export default defineComponent({
   position: relative;
   width: 720px;
   height: 405px;
+  align-self: center;
+  background-color: gray;
+  margin: auto;
 }
 .absolute {
   position: absolute;
-  top: 0px;
-  right: 0px;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  margin: auto;
 }
 .multiply {
   mix-blend-mode: difference;
 }
 .container {
   padding: 10px;
-  margin: auto;
+  top: 0px;
+  right: 0px;
 }
 .buttons {
   display: flex;
+  flex-direction:column;
   justify-content: space-evenly;
+  width:300px;
 }
 .params {
   display: flex;
-  flex-direction: column;
+  flex-direction:column;
+  justify-content: space-evenly;
 }
 .items p {
   width: 200px;
@@ -176,6 +182,13 @@ export default defineComponent({
 }
 .items {
   display: flex;
-  padding: 10px;
+  width:300px;
+}
+.settings{
+  display: flex;
+  justify-content:center;
+}
+.settingbutton{
+  margin: 10px;
 }
 </style>
