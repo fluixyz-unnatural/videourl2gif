@@ -19,6 +19,16 @@ const routes: Array<RouteRecordRaw> = [
     path: '/preview',
     name: 'Preview',
     component: () => import ('../views/ComponentPreview.vue')
+  },
+  {
+    path: '/file2gif',
+    name: 'file2gif',
+    component: () => import ('../views/VideoFile2Gif.vue')
+  },
+  {
+    path: '/test',
+    name: 'testpage',
+    component: () => import ('../components/Test.vue')
   }
 ]
 
