@@ -95,14 +95,14 @@ export default defineComponent({
       console.log("akljjjjjjjjjjjjjjedaaaaaaaaa");
       console.log(vf);
       await this.ffmpeg.run(
-        "-ss",
-        String(this.start),
         "-i",
         "input.mp4",
+        "-ss",
+        String(0),
         "-t",
-        String(this.duration),
+        String(10),
         "-r",
-        String(this.fps),
+        String(24),
         "-vf",
         "crop=w=" +
           String(this.cropWidth) +

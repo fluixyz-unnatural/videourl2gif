@@ -22,7 +22,7 @@ const routes: Array<RouteRecordRaw> = [
   },
   {
     path: '/file2gif',
-    name: 'File2gif',
+    name: 'file2gif',
     component: () => import ('../views/VideoFile2Gif.vue')
   },
   {
