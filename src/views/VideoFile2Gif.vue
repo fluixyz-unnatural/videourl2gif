@@ -2,7 +2,11 @@
   <div class="container center">
     <Uploader @change="setFile" />
     <div class="relative">
-      <VideoPlayer :videoSrc="videoSrc" class="absolute" @timeemit="currentTimeUpdate" />
+      <VideoPlayer
+        :videoSrc="videoSrc"
+        class="absolute"
+        @timeemit="currentTimeUpdate"
+      />
       <DrawRect
         @drawed="setCrop"
         v-show="cropping"
@@ -28,14 +32,24 @@
     </div>
   </div>
   <div class="container">
-  {{ cropx }}<br>
-  {{ cropy }}<br>
-  fps:{{ fps }}<br>
-  wid: {{ outWidth }}<br>
-  st: {{start}}<br>
-  end:{{end}} <br>
-  dur: {{ duration}} <br>
-    <Ffmpeg :src="videoSrc" :start="start" :duration="duration" :fps="fps" :cropWidth="cropwidth" :cropHeight="cropheight" :cropx="cropx" :cropy="cropy" :outWidth="outWidth" />
+    {{ cropx }}<br />
+    {{ cropy }}<br />
+    fps:{{ fps }}<br />
+    wid: {{ outWidth }}<br />
+    st: {{ start }}<br />
+    end:{{ end }} <br />
+    dur: {{ duration }} <br />
+    <Ffmpeg
+      :src="videoSrc"
+      :start="start"
+      :duration="duration"
+      :fps="fps"
+      :cropWidth="cropwidth"
+      :cropHeight="cropheight"
+      :cropx="cropx"
+      :cropy="cropy"
+      :outWidth="outWidth"
+    />
   </div>
 </template>
 
@@ -63,17 +77,17 @@ export default defineComponent({
   data() {
     return {
       videoSrc: "",
-      cropping:false,
-      start:0,
-      end:0,
-      duration:30,
-      fps:24,
-      cropwidth:100,
-      cropheight:100,
-      cropx:0,
-      cropy:0,
-      outWidth:320,
-      currentTime:0,
+      cropping: false,
+      start: 0,
+      end: 0,
+      duration: 30,
+      fps: 24,
+      cropwidth: 100,
+      cropheight: 100,
+      cropx: 0,
+      cropy: 0,
+      outWidth: 320,
+      currentTime: 0,
     };
   },
   methods: {
@@ -83,32 +97,32 @@ export default defineComponent({
       //this.data.name = file.name;
       //this.data.type = file.type;
     },
-    cropButtonPushed: function(){
+    cropButtonPushed: function() {
       this.cropping = !this.cropping;
     },
-    setCrop: function(pos: number[]){
-      this.cropx = Math.min(pos[0],pos[2]);
-      this.cropy = Math.min(pos[1],pos[3]);
-      this.cropwidth = Math.abs(pos[0]-pos[2]);
-      this.cropheight = Math.abs(pos[1]-pos[3]);
+    setCrop: function(pos: number[]) {
+      this.cropx = Math.min(pos[0], pos[2]);
+      this.cropy = Math.min(pos[1], pos[3]);
+      this.cropwidth = Math.abs(pos[0] - pos[2]);
+      this.cropheight = Math.abs(pos[1] - pos[3]);
     },
-    setWidth: function(e: any){
+    setWidth: function(e: any) {
       this.outWidth = e.target.value;
     },
-    setFps: function(e: any){
+    setFps: function(e: any) {
       this.fps = e.target.value;
     },
-    currentTimeUpdate: function(time: number){
+    currentTimeUpdate: function(time: number) {
       this.currentTime = time;
     },
-    setStart: function(){
+    setStart: function() {
       this.start = this.currentTime;
-      this.duration = this.end-this.start;
+      this.duration = this.end - this.start;
     },
-    setEnd: function(){
+    setEnd: function() {
       this.end = this.currentTime;
-      this.duration = this.end-this.start;
-    }
+      this.duration = this.end - this.start;
+    },
   },
 });
 </script>

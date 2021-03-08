@@ -4,6 +4,8 @@
     controlslist="nofullscreen"
     :src="videoSrc"
     @progress="setTimeEmit"
+    :width="width"
+    :height="height"
   />
 </template>
 
@@ -17,6 +19,14 @@ export default defineComponent({
       type: String,
       default: "",
     },
+    width: {
+      type: Number,
+      default: 360,
+    },
+    height: {
+      type:Number,
+      default: 240,
+    }
   },
   data() {
     return {
@@ -39,10 +49,4 @@ export default defineComponent({
 </script>
 
 <style scoped>
-video {
-  align: center;
-  width: 720px;
-  height: 405px;
-  border-radius: 5px;
-}
 </style>
