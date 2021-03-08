@@ -3,15 +3,18 @@
     <Uploader @change="setFile" />
     <div class="relative">
       <VideoPlayer
+        :width="playerWidth"
+        :height="playerHeight"
         :videoSrc="videoSrc"
         class="absolute"
         @timeemit="currentTimeUpdate"
+        @loadedmetadata="setPlayer"
       />
       <DrawRect
         @drawed="setCrop"
         v-show="cropping"
-        canvasWidth="720"
-        canvasHeight="405"
+        :canvasWidth="canvasWidth"
+        :canvasHeight="canvasHeight"
         class="absolute multiply"
       />
     </div>
@@ -88,23 +91,27 @@ export default defineComponent({
       cropy: 0,
       outWidth: 320,
       currentTime: 0,
+      canvasWidth: 640,
+      canvasHeight: 300,
+      playerWidth: 640,
+      playerHeight: 300,
+      r: 1,
     };
   },
   methods: {
     setFile: function(e: any) {
       const file = e.target.files[0];
       this.videoSrc = window.URL.createObjectURL(file);
-      //this.data.name = file.name;
-      //this.data.type = file.type;
+      console.log(file);
     },
     cropButtonPushed: function() {
       this.cropping = !this.cropping;
     },
     setCrop: function(pos: number[]) {
-      this.cropx = Math.min(pos[0], pos[2]);
-      this.cropy = Math.min(pos[1], pos[3]);
-      this.cropwidth = Math.abs(pos[0] - pos[2]);
-      this.cropheight = Math.abs(pos[1] - pos[3]);
+      this.cropx = Math.min(pos[0], pos[2]) / this.r;
+      this.cropy = Math.min(pos[1], pos[3]) / this.r;
+      this.cropwidth = Math.abs(pos[0] - pos[2]) / this.r;
+      this.cropheight = Math.abs(pos[1] - pos[3]) / this.r;
     },
     setWidth: function(e: any) {
       this.outWidth = e.target.value;
@@ -122,6 +129,15 @@ export default defineComponent({
     setEnd: function() {
       this.end = this.currentTime;
       this.duration = this.end - this.start;
+    },
+    setPlayer: function(e: any) {
+      const w = e.target.videoWidth;
+      const h = e.target.videoHeight;
+      const maxWidth = 720;
+      const maxHeight = 405;
+      this.r = Math.min(maxWidth / w, maxHeight / h);
+      this.canvasWidth = this.playerWidth = this.r * w;
+      this.canvasHeight = this.playerHeight = this.r * h;
     },
   },
 });
