@@ -1,11 +1,18 @@
 <template>
   <svg :width="canvasWidth" :height="canvasHeight">
     <rect
+      x="0"
+      y="0"
+      :width="canvasWidth"
+      :height="canvasHeight"
+      fill="white"
+    ></rect>
+    <rect
       :x="x"
       :y="y"
       :width="rectWidth"
       :height="rectHeight"
-      fill="#cccccc"
+      fill="black"
       stroke="black"
     ></rect>
   </svg>
@@ -50,10 +57,10 @@ export default defineComponent({
       return Math.min(this.y1, this.y2);
     },
     rectWidth(): number {
-      return Math.abs(this.x1-this.x2);
+      return Math.abs(this.x1 - this.x2);
     },
     rectHeight(): number {
-      return Math.abs(this.y1-this.y2);
+      return Math.abs(this.y1 - this.y2);
     },
   },
 });
