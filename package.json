@@ -29,5 +29,8 @@
     "eslint-plugin-vue": "^7.0.0-0",
     "tailwindcss": "^2.0.3",
     "typescript": "~3.9.3"
+  },
+  "rules": {
+    "no-console":0
   }
 }
