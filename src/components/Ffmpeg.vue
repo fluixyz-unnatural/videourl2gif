@@ -1,14 +1,10 @@
 <template>
   <div>
-    <Uploader @change="setFile" ref="ref" /><br>
-    <p>{{ src }}</p>
-  </div>
-  <div>
-    <Button @click="exportGif" label="export" /><br>
+    <Button @click="exportGif" label="export" /><br />
     <p>{{ msg }}</p>
   </div>
   <br />
- 
+
   <a :href="out" download>
     {{ out }}
   </a>
@@ -16,36 +12,111 @@
 
 <script lang="ts">
 import { defineComponent } from "vue";
-import Uploader from "@/components/Uploader.vue";
 import { createFFmpeg, fetchFile } from "@ffmpeg/ffmpeg";
 import Button from "@/components/Button.vue";
 
 export default defineComponent({
   name: "Ffmpeg",
-  props: {},
+  props: {
+    src: {
+      type: String,
+      default: "",
+    },
+    start: {
+      type: Number,
+      default: 0,
+    },
+    duration: {
+      type: Number,
+      default: 5,
+    },
+    fps: {
+      type: Number,
+      default: 24,
+    },
+    cropWidth: {
+      type: Number,
+      default: 100,
+    },
+    cropHeight: {
+      type: Number,
+      default: 100,
+    },
+    cropx: {
+      type: Number,
+      default: 0,
+    },
+    cropy: {
+      type: Number,
+      default: 0,
+    },
+    outWidth: {
+      type: Number,
+      default: 320,
+    },
+  },
   components: {
-    Uploader,
     Button,
   },
   data() {
     return {
-      src: "unselected",
       out: "",
       msg: "idling...",
       ffmpeg: createFFmpeg({ log: true }),
+      loaded:false,
     };
   },
   methods: {
-    setFile: function(e: any) {
+    setFile: function(props: any, e: any) {
       if (e.target === null) return;
-      this.src = window.URL.createObjectURL(e.target.files[0]) as string;
+      props.src = window.URL.createObjectURL(e.target.files[0]) as string;
     },
-    exportGif: async function() {
+    exportGif: async function(props: any) {
       this.msg = "loading ffmpeg...";
-      await this.ffmpeg.load();
+      if(!this.loaded){
+        await this.ffmpeg.load();
+        this.loaded=true;
+      }
       this.ffmpeg.FS("writeFile", "input.mp4", await fetchFile(this.src));
       this.msg = "ffmpeg running...";
-      await this.ffmpeg.run("-i", "input.mp4", "output.gif");
+      const vf =
+        "crop=w=" +
+        String(this.cropWidth) +
+        ":h=" +
+        String(this.cropHeight) +
+        ":x=" +
+        String(this.cropx) +
+        ":y=" +
+        String(this.cropy) +
+        ",scale=" +
+        String(this.outWidth) +
+        ":-1";
+      console.log(this.cropWidth);
+      console.log("akljjjjjjjjjjjjjjedaaaaaaaaa");
+      console.log(vf);
+      await this.ffmpeg.run(
+        "-i",
+        "input.mp4",
+        "-ss",
+        String(0),
+        "-t",
+        String(10),
+        "-r",
+        String(24),
+        "-vf",
+        "crop=w=" +
+          String(this.cropWidth) +
+          ":h=" +
+          String(this.cropHeight) +
+          ":x=" +
+          String(this.cropx) +
+          ":y=" +
+          String(this.cropy) +
+          ",scale=" +
+          String(this.outWidth) +
+          ":-1",
+        "output.gif"
+      );
       const data = this.ffmpeg.FS("readFile", "output.gif");
       this.out = URL.createObjectURL(
         new Blob([data.buffer], { type: "image/gif" })
@@ -60,6 +131,6 @@ export default defineComponent({
 <style scoped>
 div {
   display: inline-block;
-  margin:10px;
+  margin: 10px;
 }
 </style>
