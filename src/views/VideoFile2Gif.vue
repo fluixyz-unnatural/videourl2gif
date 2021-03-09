@@ -1,7 +1,5 @@
 <template>
   <div class="container center">
-    {{ currentTime }}
-    pw {{ playerWidth }} ph {{ playerHeight }} r {{ r }}
     <h1>動画ファイルからアニメーションGIFを作成</h1>
     <Uploader @change="setFile" /><br />
     <div :height="playerHeight" class="relative">
@@ -25,7 +23,7 @@
   </div>
   <Scroller
     @setCurrentTime="setCurrentTime"
-    :duration="60"
+    :duration="nativeDuration"
     :currentTime="currentTime"
     :start="start"
     :end="end"
@@ -63,6 +61,16 @@
       :cropy="cropy"
       :outWidth="outWidth"
     />
+  </div>
+  <div align="left">
+  <ul>使い方</ul>
+  <li>Open FileからGIFにしたい動画を選択</li>
+  <li>SetStartで今映っている時間を開始地点に</li>
+  <li>SetEndで今映っている時間を終了地点に</li>
+  <li>cropを押すと範囲選択モードになる</li>
+  <li>動画下部のバー(ホイールで移動、alt＋ホイールで拡大縮小)で選択範囲の確認が可能</li>
+  <li>FrameRateでフレームレートを選択</li>
+  <li>Widthで出力するGIFのサイズを設定</li>
   </div>
 </template>
 
@@ -108,6 +116,7 @@ export default defineComponent({
       playerWidth: 0,
       playerHeight: 0,
       r: 1,
+      nativeDuration:60,
     };
   },
   methods: {
@@ -146,6 +155,7 @@ export default defineComponent({
       console.log("setPlayer");
       const w = e.target.videoWidth;
       const h = e.target.videoHeight;
+      this.nativeDuration=e.target.duration;
       const maxWidth = 720;
       const maxHeight = 405;
       this.r = Math.min(maxWidth / w, maxHeight / h);
