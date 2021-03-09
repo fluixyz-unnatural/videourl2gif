@@ -1,4 +1,4 @@
-デモ：https://fluixyz-unnatural/videourl2gif
+デモ：https://fluixyz-unnatural/
 
 # videourl2gif
 
