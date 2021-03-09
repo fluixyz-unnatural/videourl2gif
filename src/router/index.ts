@@ -5,7 +5,7 @@ const routes: Array<RouteRecordRaw> = [
   {
     path: '/',
     name: 'Home',
-    component: Home
+    component: () => import ('../views/VideoFile2Gif.vue')
   },
   {
     path: '/about',

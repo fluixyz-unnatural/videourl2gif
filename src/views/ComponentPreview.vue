@@ -1,6 +1,9 @@
 <template>
   <div>
-
+    <h4>Scroller</h4>
+    <Scroller />
+    <h4>YoutubePlayer</h4>
+    <YoutubePlayer />
     <h4>ToggleButton</h4>
     <ToggleButton />
     <h4>Ffmpeg</h4>
@@ -43,6 +46,8 @@ import LocalFilePlayer from "@/components/LocalFilePlayer.vue";
 import DrawRect from "@/components/DrawRect.vue";
 import Ffmpeg from "@/components/Ffmpeg.vue";
 import ToggleButton from "@/components/ToggleButton.vue";
+import YoutubePlayer from "@/components/YoutubePlayer.vue";
+import Scroller from "@/components/Scroller.vue";
 
 export default defineComponent({
   name: "Home",
@@ -56,6 +61,8 @@ export default defineComponent({
     DrawRect,
     Ffmpeg,
     ToggleButton,
+    YoutubePlayer,
+    Scroller,
   },
 });
 </script>
