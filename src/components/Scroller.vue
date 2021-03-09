@@ -100,7 +100,7 @@
       <g v-for="scale in scales" :key="scale">
         <line
           v-show="ratio > scale.wipe"
-          v-for="i in 1000"
+          v-for="i in 200"
           :key="i"
           :x1="
             (-viewBoxX % scale.interval) * ratio +
@@ -156,7 +156,7 @@ export default defineComponent({
         { interval: 5, wipe: 0.8, half: 3, peak: 8 },
         { interval: 15, wipe: 0.5, half: 0.8, peak: 3 },
         { interval: 60, wipe: 0.1, half: 0.5, peak: 0.8 },
-        { interval: 60 * 5, wipe: 0, half: 0.5, peak: 1 },
+        { interval: 60 * 5, wipe: 0.01, half: 0.5, peak: 1 },
         { interval: 60 * 15, wipe: 0, half: 0, peak: 1 },
         { interval: 60 * 60, wipe: 0, half: 0, peak: 0 },
       ],
@@ -170,13 +170,13 @@ export default defineComponent({
       } else {
         targetR /= 1.1;
       }
-      targetR = Math.max(0.001, targetR);
+      targetR = Math.max(0.005, targetR);
       targetR = Math.min(100, targetR);
       this.ratio = targetR;
       let targetX = this.viewBoxX;
       targetX = Math.min(targetX, this.$props.duration);
       targetX = Math.max(targetX, -720 / this.ratio);
-      this.viewBoX = targetX;
+      this.viewBoxX = targetX;
     },
     slide: function(e: any) {
       let targetX = this.viewBoxX - e.deltaY / (10 * this.ratio);
