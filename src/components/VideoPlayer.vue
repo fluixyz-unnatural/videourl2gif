@@ -9,8 +9,6 @@
     :height="height"
     @loadedmetadata="lmd"
   />
-  {{ ct }}
-  {{ videoSrc }}
 </template>
 
 <script lang="ts">
