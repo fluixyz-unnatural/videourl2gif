@@ -1,4 +1,4 @@
-# videourl2gif
+# video2gif
 
 ## デモ：https://ffmpeg-on-web.web.app/
 
