@@ -1,20 +1,33 @@
 <template>
   <div
     class="back relativeCanvas"
-    v-on:wheel.exact.prevent 
-    v-on:wheel.alt.exact.prevent 
-    v-on:wheel.ctrl.exact.prevent 
-    @wheel.exact="zoom"
-    @wheel.alt.exact="slide"
-    @click="setCurrentTime"
+    v-on:wheel.exact.prevent
+    v-on:wheel.alt.exact.prevent
+    v-on:wheel.ctrl.exact.prevent
+    @wheel.alt.exact="zoom"
+    @wheel.exact="slide"
+    @mousedown="setCurrentTime"
+    @mousemove="ifSetCurrentTime"
+    @mouseup="mouseUp"
+    @mouseleave="mouseUp"
   >
     <svg
-      :viewBox="String(viewBoxX)+', 0, ' + String(viewBoxWidth) + ', 100'"
+      xmlns="http://www.w3.org/2000/svg"
+      :viewBox="String(viewBoxX) + ', 0, ' + String(viewBoxWidth) + ', 100'"
       width="720"
       height="100"
       class="absolute timeline"
       preserveAspectRatio="none"
     >
+      <!-- タイムライン !-->
+      <line
+        x1="0"
+        y1="50"
+        :x2="duration"
+        y2="50"
+        stroke-width="100"
+        stroke="lightgray"
+      ></line>
       <line
         x1="0"
         y1="50"
@@ -23,14 +36,18 @@
         stroke-width="5"
         stroke="gray"
       ></line>
+
+      <!-- 選択範囲 !-->
       <line
+        v-show="start < end"
         :x1="start"
         :x2="end"
         y1="50"
         y2="50"
         stroke-width="10"
-        stroke="red"
+        stroke="dodgerblue"
       ></line>
+      <!-- 現在地点 !-->
       <line
         :x1="currentTime"
         :x2="currentTime"
@@ -39,8 +56,26 @@
         :stroke-width="reRatio"
         stroke="black"
       ></line>
+      <!-- start !-->
+      <line
+        :x1="start"
+        :x2="start"
+        y1="40"
+        y2="60"
+        :stroke-width="3 * reRatio"
+        stroke="dodgerblue"
+      ></line>
+      <line
+        :x1="end"
+        :x2="end"
+        y1="40"
+        y2="60"
+        :stroke-width="3 * reRatio"
+        stroke="dodgerblue"
+      ></line>
     </svg>
   </div>
+  {{ start }}
 </template>
 
 <script lang="ts">
@@ -71,7 +106,8 @@ export default defineComponent({
     return {
       ratio: 1,
       timeline: 0,
-      viewBoxX:-10,
+      viewBoxX: -10,
+      isPushed: false,
     };
   },
   methods: {
@@ -79,19 +115,29 @@ export default defineComponent({
       this.ratio *= 1 - e.deltaY / 300;
     },
     slide: function(e: any) {
-      this.viewBoxX += e.deltaY/(10*this.ratio);
+      this.viewBoxX += e.deltaY / (10 * this.ratio);
     },
-    setCurrentTime: function(e: any){
-      console.log(e.offsetX/this.ratio);
-      this.$emit("setCurrentTime",(this.viewBoxX)+e.offsetX/this.ratio);
-    }
+    setCurrentTime: function(e: any) {
+      this.isPushed = true;
+      console.log(e.offsetX / this.ratio);
+      this.$emit("setCurrentTime", this.viewBoxX + e.offsetX / this.ratio);
+    },
+    mouseUp: function() {
+      this.isPushed = false;
+    },
+    ifSetCurrentTime: function(e: any) {
+      if (this.isPushed) {
+        console.log(e.offsetX / this.ratio);
+        this.$emit("setCurrentTime", this.viewBoxX + e.offsetX / this.ratio);
+      }
+    },
   },
   computed: {
     viewBoxWidth: function(): number {
       return 720 / this.ratio;
     },
-    reRatio: function(): number{
-      return 1/this.ratio;
+    reRatio: function(): number {
+      return 1 / this.ratio;
     },
   },
 });
