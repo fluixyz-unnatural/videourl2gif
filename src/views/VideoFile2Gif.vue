@@ -1,9 +1,12 @@
 <template>
   <div class="container center">
+    {{ currentTime }}
+    pw {{ playerWidth }} ph {{ playerHeight }} r {{ r }}
     <h1>動画ファイルからアニメーションGIFを作成</h1>
     <Uploader @change="setFile" /><br />
     <div :height="playerHeight" class="relative">
       <VideoPlayer
+        ref="player"
         :height="playerHeight"
         :width="playerWidth"
         :videoSrc="videoSrc"
@@ -20,11 +23,22 @@
       />
     </div>
   </div>
+  <Scroller
+    @setCurrentTime="setCurrentTime"
+    :duration="60"
+    :currentTime="currentTime"
+    :start="start"
+    :end="end"
+  />
   <div class="settings">
     <div class="container buttons">
-      <ToggleButton @click="cropButtonPushed" label="crop" class="settingbutton"/>
-      <Button @click="setStart" label="SetStart" class="settingbutton"/>
-      <Button @click="setEnd" label="SetEnd" class="settingbutton"/>
+      <ToggleButton
+        @click="cropButtonPushed"
+        label="crop"
+        class="settingbutton"
+      />
+      <Button @click="setStart" label="SetStart" class="settingbutton" />
+      <Button @click="setEnd" label="SetEnd" class="settingbutton" />
     </div>
     <div class="container params">
       <div class="items">
@@ -61,6 +75,7 @@ import DrawRect from "@/components/DrawRect.vue";
 import Ffmpeg from "@/components/Ffmpeg.vue";
 import Uploader from "@/components/Uploader.vue";
 import ToggleButton from "@/components/ToggleButton.vue";
+import Scroller from "@/components/Scroller.vue";
 
 export default defineComponent({
   name: "VideoFile2Gif",
@@ -72,6 +87,7 @@ export default defineComponent({
     Ffmpeg,
     Uploader,
     ToggleButton,
+    Scroller,
   },
   data() {
     return {
@@ -98,7 +114,7 @@ export default defineComponent({
     setFile: function(e: any) {
       const file = e.target.files[0];
       this.videoSrc = window.URL.createObjectURL(file);
-      console.log(file);
+      console.log(file.name);
     },
     cropButtonPushed: function() {
       this.cropping = !this.cropping;
@@ -127,6 +143,7 @@ export default defineComponent({
       this.duration = this.end - this.start;
     },
     setPlayer: function(e: any) {
+      console.log("setPlayer");
       const w = e.target.videoWidth;
       const h = e.target.videoHeight;
       const maxWidth = 720;
@@ -134,6 +151,11 @@ export default defineComponent({
       this.r = Math.min(maxWidth / w, maxHeight / h);
       this.canvasWidth = this.playerWidth = this.r * w;
       this.canvasHeight = this.playerHeight = this.r * h;
+    },
+    setCurrentTime: function(ct: number) {
+      this.currentTime = ct;
+      const player = this.$refs.player as InstanceType<typeof VideoPlayer>;
+      player.setCurrentTime(ct);
     },
   },
 });
@@ -166,13 +188,13 @@ export default defineComponent({
 }
 .buttons {
   display: flex;
-  flex-direction:column;
+  flex-direction: column;
   justify-content: space-evenly;
-  width:300px;
+  width: 300px;
 }
 .params {
   display: flex;
-  flex-direction:column;
+  flex-direction: column;
   justify-content: space-evenly;
 }
 .items p {
@@ -182,13 +204,13 @@ export default defineComponent({
 }
 .items {
   display: flex;
-  width:300px;
+  width: 300px;
 }
-.settings{
+.settings {
   display: flex;
-  justify-content:center;
+  justify-content: center;
 }
-.settingbutton{
+.settingbutton {
   margin: 10px;
 }
 </style>

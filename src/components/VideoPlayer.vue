@@ -2,11 +2,15 @@
   <video
     controls
     controlslist="nofullscreen"
+    :currentTime="currentTime"
     :src="videoSrc"
     @progress="setTimeEmit"
     :width="width"
     :height="height"
+    @loadedmetadata="lmd"
   />
+  {{ ct }}
+  {{ videoSrc }}
 </template>
 
 <script lang="ts">
@@ -24,13 +28,14 @@ export default defineComponent({
       default: 360,
     },
     height: {
-      type:Number,
+      type: Number,
       default: 240,
-    }
+    },
   },
   data() {
     return {
       ct: 0,
+      currentTime: 0,
     };
   },
   methods: {
@@ -42,11 +47,16 @@ export default defineComponent({
             this.ct = e.target.currentTime;
           }
         }
-      }, 100);
+      }, 1);
     },
+    lmd: function(e: any){
+      this.$emit("loadedmetadata",e);
+    },
+    setCurrentTime: function(ct: number){
+      this.currentTime=ct;
+    }
   },
 });
 </script>
 
-<style scoped>
-</style>
+<style scoped></style>
