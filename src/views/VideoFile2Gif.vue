@@ -1,6 +1,6 @@
 <template>
   <div class="container center">
-    <h1>動画ファイルからアニメーションGIFを作成</h1>
+    <h1>動画ファイルからアニメーションGIFを作成 v0.1</h1>
     <Uploader @change="setFile" /><br />
     <div :height="playerHeight" class="relative">
       <VideoPlayer
