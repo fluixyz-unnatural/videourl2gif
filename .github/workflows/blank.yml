@@ -11,4 +11,4 @@ jobs:
         run: cd docs
 
       - name: Deploy to Firebase
-        run: npm deploy --token=$1//0e920RYX9hLwNCgYIARAAGA4SNwF-L9IrrjhCsQSRJusPo1JvEXk1nP9XRXh1Qzru6usD7rNqjQR6JCrtwFP0dYcHbMBkcSmmoZ8
+        run: firebase deploy --token=$1//0e920RYX9hLwNCgYIARAAGA4SNwF-L9IrrjhCsQSRJusPo1JvEXk1nP9XRXh1Qzru6usD7rNqjQR6JCrtwFP0dYcHbMBkcSmmoZ8
