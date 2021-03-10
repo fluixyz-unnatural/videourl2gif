@@ -7,14 +7,8 @@ jobs:
   deploy_firebase_hosting:
     runs-on: macos-latest
     steps:
-      - name: Checkout the repository
-        uses: actions/checkout@master
-
-      - name: Install Dependencies 
-        run: npm i
-
-      - name: Build
-        run: npm run build
+      - name: cd
+        run: cd docs
 
       - name: Deploy to Firebase
         run: npm deploy --token=$1//0e920RYX9hLwNCgYIARAAGA4SNwF-L9IrrjhCsQSRJusPo1JvEXk1nP9XRXh1Qzru6usD7rNqjQR6JCrtwFP0dYcHbMBkcSmmoZ8
