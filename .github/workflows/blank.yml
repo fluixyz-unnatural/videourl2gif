@@ -9,15 +9,12 @@ jobs:
     steps:
       - name: Checkout the repository
         uses: actions/checkout@master
-	# ポイント１
-	# ↓↓↓ node_modulesはgit管理していないと思いますので、ここで、nodeモジュールを取得するコマンドをjobとして設定します。
-      - name: Install Dependencies # ← コマンド識別名
-        run: npm install　# ← 実際のコマンド
-	# ポイント２
-	# ↓↓↓ ビルドファイルを作成するためのコマンド
+
+      - name: Install Dependencies 
+        run: npm install　
+
       - name: Build
         run: npm run build
-	# ポイント３
-	# ↓↓↓ Firebaseのデプロイコマンドここに先ほど控えたトークンを貼り付けます
+
       - name: Deploy to Firebase
         run: npm deploy --token=$1//0e920RYX9hLwNCgYIARAAGA4SNwF-L9IrrjhCsQSRJusPo1JvEXk1nP9XRXh1Qzru6usD7rNqjQR6JCrtwFP0dYcHbMBkcSmmoZ8
