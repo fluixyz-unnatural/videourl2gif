@@ -5,11 +5,13 @@
   "scripts": {
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
-    "lint": "vue-cli-service lint"
+    "lint": "vue-cli-service lint",
+    "deploy":"firebase deploy"
   },
   "dependencies": {
     "@ffmpeg/ffmpeg": "^0.9.7",
     "core-js": "^3.6.5",
+    "firebase": "^8.2.10",
     "vue": "^3.0.0",
     "vue-router": "^4.0.0-0",
     "vuex": "^4.0.0-0"
@@ -31,6 +33,6 @@
     "typescript": "~3.9.3"
   },
   "rules": {
-    "no-console":0
+    "no-console": 0
   }
 }
