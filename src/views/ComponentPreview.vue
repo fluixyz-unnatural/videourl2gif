@@ -1,5 +1,7 @@
 <template>
   <div>
+    <h4>TimeLine</h4>
+    <TimeLine />
     <h4>Scroller</h4>
     <Scroller />
     <h4>YoutubePlayer</h4>
@@ -48,6 +50,7 @@ import Ffmpeg from "@/components/Ffmpeg.vue";
 import ToggleButton from "@/components/ToggleButton.vue";
 import YoutubePlayer from "@/components/YoutubePlayer.vue";
 import Scroller from "@/components/Scroller.vue";
+import TimeLine from "@/components/TimeLine.vue";
 
 export default defineComponent({
   name: "Home",
@@ -63,6 +66,7 @@ export default defineComponent({
     ToggleButton,
     YoutubePlayer,
     Scroller,
+    TimeLine,
   },
 });
 </script>
