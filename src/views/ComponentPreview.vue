@@ -1,9 +1,10 @@
 <template>
   <div>
+
+    <h4>Thumbnails</h4>
+    <Thumbnails />
     <h4>TimeLine</h4>
     <TimeLine />
-    <h4>Scroller</h4>
-    <Scroller />
     <h4>YoutubePlayer</h4>
     <YoutubePlayer />
     <h4>ToggleButton</h4>
@@ -49,8 +50,8 @@ import DrawRect from "@/components/DrawRect.vue";
 import Ffmpeg from "@/components/Ffmpeg.vue";
 import ToggleButton from "@/components/ToggleButton.vue";
 import YoutubePlayer from "@/components/YoutubePlayer.vue";
-import Scroller from "@/components/Scroller.vue";
 import TimeLine from "@/components/TimeLine.vue";
+import Thumbnails from "@/components/Thumbnails.vue"
 
 export default defineComponent({
   name: "Home",
@@ -65,8 +66,8 @@ export default defineComponent({
     Ffmpeg,
     ToggleButton,
     YoutubePlayer,
-    Scroller,
     TimeLine,
+    Thumbnails,
   },
 });
 </script>
