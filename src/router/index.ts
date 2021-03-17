@@ -1,5 +1,4 @@
 import { createRouter, createWebHistory, RouteRecordRaw } from 'vue-router'
-import Home from '../views/Home.vue'
 
 const routes: Array<RouteRecordRaw> = [
   {
@@ -25,7 +24,6 @@ const routes: Array<RouteRecordRaw> = [
     name: 'File2gif',
     component: () => import ('../views/VideoFile2Gif.vue')
   },
-
 ]
 
 const router = createRouter({
