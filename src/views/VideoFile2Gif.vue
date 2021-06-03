@@ -1,76 +1,78 @@
 <template>
-  <div class="container center">
-    <h1>動画ファイルからアニメーションGIFを作成 v0.1</h1>
-    <Uploader @change="setFile" /><br />
-    <div :height="playerHeight" class="relative">
-      <VideoPlayer
-        ref="player"
-        :height="playerHeight"
-        :width="playerWidth"
-        :videoSrc="videoSrc"
-        class="absolute"
-        @timeemit="currentTimeUpdate"
-        @loadedmetadata="setPlayer"
-      />
-      <DrawRect
-        @drawed="setCrop"
-        v-show="cropping"
-        :canvasWidth="canvasWidth"
-        :canvasHeight="canvasHeight"
-        class="absolute multiply"
-      />
-    </div>
-  </div>
-  <Scroller
-    @setCurrentTime="setCurrentTime"
-    :duration="nativeDuration"
-    :currentTime="currentTime"
-    :start="start"
-    :end="end"
-  />
-  <div class="settings">
-    <div class="container buttons">
-      <ToggleButton
-        @click="cropButtonPushed"
-        label="crop"
-        class="settingbutton"
-      />
-      <Button @click="setStart" label="SetStart" class="settingbutton" />
-      <Button @click="setEnd" label="SetEnd" class="settingbutton" />
-    </div>
-    <div class="container params">
-      <div class="items">
-        <p>FrameRate</p>
-        <TextBox @change="setFps" />
-      </div>
-      <div class="items">
-        <p>Width</p>
-        <TextBox @change="setWidth" />
+  <div class="page">
+    <div class="container center">
+      <h1>動画ファイルからアニメーションGIFを作成 v0.1</h1>
+      <Uploader @change="setFile" /><br />
+      <div :height="playerHeight" class="relative">
+        <VideoPlayer
+          ref="player"
+          :height="playerHeight"
+          :width="playerWidth"
+          :videoSrc="videoSrc"
+          class="absolute"
+          @timeemit="currentTimeUpdate"
+          @loadedmetadata="setPlayer"
+        />
+        <DrawRect
+          @drawed="setCrop"
+          v-show="cropping"
+          :canvasWidth="canvasWidth"
+          :canvasHeight="canvasHeight"
+          class="absolute multiply"
+        />
       </div>
     </div>
-  </div>
-  <div class="container">
-    <Ffmpeg
-      :src="videoSrc"
+    <Scroller
+      @setCurrentTime="setCurrentTime"
+      :duration="nativeDuration"
+      :currentTime="currentTime"
       :start="start"
-      :duration="duration"
-      :fps="fps"
-      :cropWidth="cropwidth"
-      :cropHeight="cropheight"
-      :cropx="cropx"
-      :cropy="cropy"
-      :outWidth="outWidth"
+      :end="end"
     />
-  </div>
-  <div align="left">
-  <ul>使い方</ul>
-  <li>Open FileからGIFにしたい動画を選択</li>
-  <li>SetStartで今映っている時間を開始地点に</li>
-  <li>SetEndで今映っている時間を終了地点に</li>
-  <li>cropを押すと範囲選択モードになる</li>
-  <li>動画下部のバー(ホイールで移動、alt＋ホイールで拡大縮小)で選択範囲の確認が可能</li>
-  <li>FrameRateでフレームレートを選択</li>
-  <li>Widthで出力するGIFのサイズを設定</li>
+    <div class="settings">
+      <div class="container buttons">
+        <ToggleButton
+          @click="cropButtonPushed"
+          label="crop"
+          class="settingbutton"
+        />
+        <Button @click="setStart" label="SetStart" class="settingbutton" />
+        <Button @click="setEnd" label="SetEnd" class="settingbutton" />
+      </div>
+      <div class="container params">
+        <div class="items">
+          <p>FrameRate</p>
+          <TextBox @change="setFps" />
+        </div>
+        <div class="items">
+          <p>Width</p>
+          <TextBox @change="setWidth" />
+        </div>
+      </div>
+    </div>
+    <div class="container">
+      <Ffmpeg
+        :src="videoSrc"
+        :start="start"
+        :duration="duration"
+        :fps="fps"
+        :cropWidth="cropwidth"
+        :cropHeight="cropheight"
+        :cropx="cropx"
+        :cropy="cropy"
+        :outWidth="outWidth"
+      />
+    </div>
+    <div align="left">
+    <ul>使い方</ul>
+    <li>Open FileからGIFにしたい動画を選択</li>
+    <li>SetStartで今映っている時間を開始地点に</li>
+    <li>SetEndで今映っている時間を終了地点に</li>
+    <li>cropを押すと範囲選択モードになる</li>
+    <li>動画下部のバー(ホイールで移動、alt＋ホイールで拡大縮小)で選択範囲の確認が可能</li>
+    <li>FrameRateでフレームレートを選択</li>
+    <li>Widthで出力するGIFのサイズを設定</li>
+    </div>
   </div>
 </template>
 
@@ -192,20 +194,29 @@ export default defineComponent({
   mix-blend-mode: difference;
 }
 .container {
+  max-width:1020px;
   padding: 10px;
   top: 0px;
   right: 0px;
+}
+.page {
+  text-align:center;
+  max-width:1020px;
+  margin:0 auto;
 }
 .buttons {
   display: flex;
   flex-direction: column;
   justify-content: space-evenly;
   width: 300px;
+  margin:10 auto;
 }
 .params {
   display: flex;
   flex-direction: column;
   justify-content: space-evenly;
+  width:300px;
+  margin:10 auto;
 }
 .items p {
   width: 200px;
@@ -222,5 +233,9 @@ export default defineComponent({
 }
 .settingbutton {
   margin: 10px;
+}
+h1{
+  font-size:32px;
+  margin:20px;
 }
 </style>
